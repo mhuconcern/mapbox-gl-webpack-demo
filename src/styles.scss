@@ -1,0 +1,23 @@
+$primary-color: white;
+$bg: black;
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+  color: $primary-color;
+  background-color: $bg;
+}
+
+h1 {
+    text-align: center;
+}
+
+#map {
+    background-color: white;
+    margin: 0 auto;
+    height: 80%;
+    width: 90%;
+}
