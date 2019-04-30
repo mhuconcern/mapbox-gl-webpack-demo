@@ -1,4 +1,5 @@
 import * as mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import './styles.scss';
 
 (mapboxgl as any).accessToken = 'pk.eyJ1Ijoic2FnZXdhbGwiLCJhIjoiY2oyMmpla213MDBmdDMybWtjY3lyYzRjeSJ9.Nd7bpm84x9CerBQz9DG_Cw';
