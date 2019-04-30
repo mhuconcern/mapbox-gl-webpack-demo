@@ -1,7 +1,7 @@
-const path = require('path');
-const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
 
 const config = {
     entry: {
@@ -31,18 +31,14 @@ const config = {
                 test: /\.(ts|tsx)?$/,
                 loader: 'ts-loader',
                 exclude: /node_modules/
-            },
-            {
-                test: /\.hbs$/,
-                loader: 'handlebars-loader'
-            },
+            }
         ]
     },
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             title: 'Mapbox GL Webpack Demo',
-            template: './src/index.hbs'
+            template: './src/index.html'
         }),
         new webpack.HotModuleReplacementPlugin()
     ],
