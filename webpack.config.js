@@ -37,8 +37,9 @@ const config = {
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            title: 'Mapbox GL Webpack Demo',
-            template: './src/index.html'
+            favicon: './src/favicon.ico',
+            template: './src/index.html',
+            title: 'Mapbox GL Webpack Demo'
         }),
         new webpack.HotModuleReplacementPlugin()
     ],
