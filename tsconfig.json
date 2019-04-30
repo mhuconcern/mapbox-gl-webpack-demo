@@ -1,14 +1,13 @@
 {
     "compilerOptions": {
+        "allowJs": true,
+        "module": "es6",
+        "moduleResolution": "node",
+        "noImplicitReturns": true,
         "outDir": "./dist/",
         "sourceMap": true,
         "strict": true,
-        "noImplicitReturns": true,
-        "noImplicitAny": true,
-        "module": "es6",
-        "moduleResolution": "node",
         "target": "es5",
-        "allowJs": true,
     },
     "include": [
         "./src/**/*"
