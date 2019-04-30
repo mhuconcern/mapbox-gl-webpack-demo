@@ -1,3 +1,5 @@
+import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import * as mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './styles.scss';
@@ -10,3 +12,8 @@ const map = new mapboxgl.Map({
     center: [-105.185583, 39.742447],
     zoom: 10
 });
+
+map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl
+}))

@@ -6,7 +6,7 @@
         "noImplicitReturns": true,
         "outDir": "./dist/",
         "sourceMap": true,
-        "strict": true,
+        // "strict": true,
         "target": "es5",
     },
     "include": [
