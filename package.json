@@ -7,7 +7,7 @@
     "build-dev": "webpack -d --mode development",
     "build-prod": "webpack -p --mode production",
     "clean": "rm dist/bundle.js",
-    "server": "webpack-dev-server --open",
+    "start": "webpack-dev-server --open",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch"
   },
