@@ -488,8 +488,6 @@ var Windy = function( params ){
   return windy;
 }
 
-
-
 // shim layer with setTimeout fallback
 window.requestAnimationFrame = (function(){
   return  window.requestAnimationFrame       ||
@@ -501,3 +499,5 @@ window.requestAnimationFrame = (function(){
             window.setTimeout(callback, 1000 / 20);
           };
 })();
+
+export default Windy;

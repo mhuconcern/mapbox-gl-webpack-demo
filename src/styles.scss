@@ -4,11 +4,7 @@ $bg: black;
 html, body {
     height: 100%;
     width: 100%;
-}
-
-body {
-  color: $primary-color;
-  background-color: $bg;
+    margin: 0;
 }
 
 h1 {
@@ -17,7 +13,9 @@ h1 {
 
 #map {
     background-color: white;
-    margin: 0 auto;
-    height: 80%;
-    width: 90%;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
 }
