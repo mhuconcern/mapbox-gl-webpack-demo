@@ -2,6 +2,7 @@ import * as mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './styles.scss';
 import Windy from './windy';
+const data = require('./gfs.json');
 
 (mapboxgl as any).accessToken = 'pk.eyJ1Ijoibmljb2xlaHUiLCJhIjoiSUFHaHEyVSJ9.sQh47fHih8dvNgItm92dqg';
 
@@ -34,3 +35,19 @@ map.on("load", function () {
     source: "canvas-source",
   });
 });
+var canvas = document.getElementById('canvasID');
+var windy = Windy({ canvas, data });
+redraw();
+function redraw(){
+    windy.stop();
+
+    var extent = map.getBounds();
+    setTimeout(function(){
+      windy.start(
+        [[0,0],[map.getCanvas().width, map.getCanvas().height]],
+        map.getCanvas().width,
+        map.getCanvas().height,
+        extent.toArray(),
+      );
+    },500);
+  }
