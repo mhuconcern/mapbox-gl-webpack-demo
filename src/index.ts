@@ -28,12 +28,20 @@ map.on("load", function () {
       // Set to true if the canvas source is animated. If the canvas is static, animate should be set to false to improve performance.
       animate: true,
     });
-  
+    var layers = map.getStyle().layers;
+    // Find the index of the first symbol layer in the map style
+    var firstSymbolId;
+    for (var i = 0; i < layers.length; i++) {
+      if (layers[i].type === "symbol") {
+        firstSymbolId = layers[i].id;
+        break;
+      }
+    }
     map.addLayer({
       id: "canvas-layer",
       type: "raster",
       source: "canvas-source",
-    });
+    }, firstSymbolId);
     redraw();
   });
   var canvas : HTMLCanvasElement = document.getElementById('canvasID') as HTMLCanvasElement;
