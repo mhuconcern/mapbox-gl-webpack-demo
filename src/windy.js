@@ -40,6 +40,7 @@ var Windy = function( params ){
 
   var createWindBuilder = function(uComp, vComp) {
       var uData = uComp.data, vData = vComp.data;
+      // Just combine both u and v together here and use the same header
       return {
           header: uComp.header,
           //recipe: recipeFor("wind-" + uComp.header.surface1Value),
@@ -52,7 +53,7 @@ var Windy = function( params ){
 
   var createBuilder = function(data) {
       var uComp = null, vComp = null, scalar = null;
-
+      // Here data is in two sets one is entirely u and one is entirely v
       data.forEach(function(record) {
           switch (record.header.parameterCategory + "," + record.header.parameterNumber) {
               case "2,2": uComp = record; break;
@@ -61,14 +62,13 @@ var Windy = function( params ){
                 scalar = record;
           }
       });
-
       return createWindBuilder(uComp, vComp);
   };
 
   var buildGrid = function(data, callback) {
       var builder = createBuilder(data);
 
-      var header = builder.header;
+      var header = builder.header;           // the grid's header
       var λ0 = header.lo1, φ0 = header.la1;  // the grid's origin (e.g., 0.0E, 90.0N)
       var Δλ = header.dx, Δφ = header.dy;    // distance between grid points (e.g., 2.5 deg lon, 2.5 deg lat)
       var ni = header.nx, nj = header.ny;    // number of grid points W-E and N-S (e.g., 144 x 73)
@@ -78,20 +78,25 @@ var Windy = function( params ){
       // Scan mode 0 assumed. Longitude increases from λ0, and latitude decreases from φ0.
       // http://www.nco.ncep.noaa.gov/pmb/docs/grib2/grib2_table3-4.shtml
       var grid = [], p = 0;
+      // Determines if the grid wraps around only happens if the distance between grids is higher
       var isContinuous = Math.floor(ni * Δλ) >= 360;
       for (var j = 0; j < nj; j++) {
+          // Iterate through all grid points N-S
           var row = [];
           for (var i = 0; i < ni; i++, p++) {
+              // Iterate through all grid points W-E
               row[i] = builder.data(p);
           }
           if (isContinuous) {
               // For wrapped grids, duplicate first column as last column to simplify interpolation logic
+              // This will stop stuff
               row.push(row[0]);
           }
           grid[j] = row;
       }
 
       function interpolate(λ, φ) {
+          // Interpolate between grid values
           var i = floorMod(λ - λ0, 360) / Δλ;  // calculate longitude index in wrapped range [0, 360)
           var j = (φ0 - φ) / Δφ;                 // calculate latitude index in direction +90 to -90
 
@@ -270,7 +275,7 @@ var Windy = function( params ){
 
 
   var interpolateField = function( grid, bounds, extent, callback ) {
-
+    // MAIN THING is here
     var projection = {};
     var velocityScale = VELOCITY_SCALE;
 
@@ -457,7 +462,6 @@ var Windy = function( params ){
       width: width,
       height: height
     };
-
     stop();
 
     // build grid
