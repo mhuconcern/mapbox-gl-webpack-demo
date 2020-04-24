@@ -11,14 +11,14 @@
 */
 
 var Windy = function( params ){
-  var VELOCITY_SCALE = 0.011;             // scale for wind velocity (completely arbitrary--this value looks nice)
-  var INTENSITY_SCALE_STEP = 1.5;            // step size of particle intensity color scale
-  var MAX_WIND_INTENSITY = 40;              // wind velocity at which particle intensity is maximum (m/s)
+  var VELOCITY_SCALE = 0.00011;             // scale for wind velocity (completely arbitrary--this value looks nice)
+  var INTENSITY_SCALE_STEP = 0.8;            // step size of particle intensity color scale
+  var MAX_WIND_INTENSITY = 8;              // wind velocity at which particle intensity is maximum (m/s)
   var MAX_PARTICLE_AGE = 10;                // max number of frames a particle is drawn before regeneration
-  var PARTICLE_LINE_WIDTH = 0.01;              // line width of a drawn particle
-  var PARTICLE_MULTIPLIER = 1/80;             // particle count scalar (completely arbitrary--this values looks nice)
-  var PARTICLE_REDUCTION = 0.75;            // reduce particle count to this much of normal for mobile devices
-  var FRAME_RATE = 20;                      // desired milliseconds per frame
+  var PARTICLE_LINE_WIDTH = 0.5;              // line width of a drawn particle
+  var PARTICLE_MULTIPLIER = 1/55;             // particle count scalar (completely arbitrary--this values looks nice)
+  var PARTICLE_REDUCTION = 0.95;            // reduce particle count to this much of normal for mobile devices
+  var FRAME_RATE = 10;                      // desired milliseconds per frame
   var BOUNDARY = 0.45;
 
   var NULL_WIND_VECTOR = [NaN, NaN, null];  // singleton for no wind in the form: [u, v, magnitude]
@@ -38,11 +38,11 @@ var Windy = function( params ){
   };
 
 
-  var createWindBuilder = function(uComp, vComp) {
-      var uData = uComp.data, vData = vComp.data;
+  var createWindBuilder = function(uComp, vComp, header) {
+      var uData = uComp, vData = vComp;
       // Just combine both u and v together here and use the same header
       return {
-          header: uComp.header,
+          header: header,
           //recipe: recipeFor("wind-" + uComp.header.surface1Value),
           data: function(i) {
               return [uData[i], vData[i]];
@@ -62,7 +62,7 @@ var Windy = function( params ){
                 scalar = record;
           }
       });
-      return createWindBuilder(uComp, vComp);
+      return createWindBuilder(uComp.data[0], uComp.data[1], uComp.header);
   };
 
   var buildGrid = function(data, callback) {

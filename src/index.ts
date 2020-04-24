@@ -3,14 +3,14 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import "./styles.scss";
 import Windy from "./windy";
 const data = require("./gfs2.json");
-
+const sample_data = require("./extreme_event_grid.json");
 (mapboxgl as any).accessToken =
   "pk.eyJ1Ijoibmljb2xlaHUiLCJhIjoiSUFHaHEyVSJ9.sQh47fHih8dvNgItm92dqg";
 const map = new mapboxgl.Map({
   container: "map",
   style: "mapbox://styles/mapbox/dark-v10",
-  center: [-99.076, 39.132],
-  zoom: 2,
+  center: [130.7116838698472, 32.803596546861485],
+  zoom: 13.3,
 });
 
 (window as any).Map = map;
@@ -54,7 +54,7 @@ map.on("load", function () {
   redraw();
 });
 var canvas: HTMLCanvasElement = document.getElementById("canvasID") as HTMLCanvasElement;
-var windy = Windy({ canvas, data });
+var windy = Windy({ canvas, data:sample_data });
 map.on("resize", redraw);
 function redraw() {
   const canvasMap: mapboxgl.CanvasSource = map.getSource("canvas-source") as mapboxgl.CanvasSource;
